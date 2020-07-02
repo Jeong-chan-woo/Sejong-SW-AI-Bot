@@ -105,3 +105,20 @@ def accreditation(dp):
     return False
   result = [dp+"_acc.png"]
   return result
+
+def calendar(month):
+  if '월' in month:
+    month = month.replace('월', '')
+  if len(month) > 2 or not month.isdigit() or int(month) > 12:
+    return False
+  
+  month = int(month)
+  source = requests.get('http://sejong.ac.kr/unilife/program_01.html').text
+  soup = BeautifulSoup(source, "html.parser")
+  month_data = soup.select("div.calendar_list > ul")[month-1].select('li')
+  month_data = [ i.text.strip() for i in month_data ]
+  for i in range(len(month_data)):
+    date_index = month_data[i].rfind(')', 0, len(month_data[i])-1)
+    month_data[i] = month_data[i][:date_index+1] + ' : ' + month_data[i][date_index+1:]
+
+  return '< '+str(month)+'월 >\n'+'\n'.join(month_data)
