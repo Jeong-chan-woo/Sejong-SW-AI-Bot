@@ -24,33 +24,33 @@ def find_menu(chat_message, major):
     if ("교과과정" in chat_message)==True or ("교과 과정" in chat_message)==True or ("교육과정" in chat_message)==True or ("교육 과정" in chat_message)==True:
         photo = crawling.curriculum(major)
         for i in photo:
-            url_img = "https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/sendPhoto";
+            url_img = "https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/sendPhoto";
             files = {'photo': open(i, 'rb')}
             data = {'chat_id' : chat_id}
             r= requests.post(url_img, files=files, data=data)
         return True
     elif ("학사일정" in chat_message)==True or ("학사 일정" in chat_message)==True or ("일정" in chat_message)==True:
-        url = 'https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/sendMessage'.format(token)
+        url = 'https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/sendMessage'.format(token)
         requests.get(url, params = {"chat_id" : chat_id, "text" : '몇 월의 학사일정을 알고싶은가요?'})
         time.sleep(5)
-        url = 'https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/getUpdates'.format(token)
+        url = 'https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/getUpdates'.format(token)
         response = json.loads(requests.get(url).text)
         month = response["result"][-1]["message"]["text"]
         data = crawling.calendar(month)
-        url = 'https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/sendMessage'.format(token)
+        url = 'https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/sendMessage'.format(token)
         requests.get(url, params = {"chat_id" : chat_id, "text" : data})
         return True
 
     elif ("졸업요건" in chat_message)==True or ("졸업 요건" in chat_message)==True or ("졸업" in chat_message)==True:
-        url = 'https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/sendMessage'.format(token)
+        url = 'https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/sendMessage'.format(token)
         requests.get(url, params = {"chat_id" : chat_id, "text" : '입학연도를 알려주세요!'})
         time.sleep(5)
-        url = 'https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/getUpdates'.format(token)
+        url = 'https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/getUpdates'.format(token)
         response = json.loads(requests.get(url).text)
         year = response["result"][-1]["message"]["text"]
         photo = crawling.graduation_condition(year)
         for i in photo:
-            url_img = "https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/sendPhoto";
+            url_img = "https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/sendPhoto";
             files = {'photo': open('졸업요건/'+i, 'rb')}
             data = {'chat_id' : chat_id}
             r= requests.post(url_img, files=files, data=data)
@@ -58,18 +58,18 @@ def find_menu(chat_message, major):
     elif ("공학인증" in chat_message)==True or ("공학 인증" in chat_message)==True or ("공학" in chat_message)==True:
         EA = crawling.accreditation(major)
         if EA != False:
-            url_img = "https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/sendPhoto";
+            url_img = "https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/sendPhoto";
             files = {'photo': open("공학인증/"+EA[0], 'rb')}
             data = {'chat_id' : chat_id}
             r= requests.post(url_img, files=files, data=data)
         else:
-            url = 'https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/sendMessage'.format(token)
+            url = 'https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/sendMessage'.format(token)
             requests.get(url, params = {"chat_id" : chat_id, "text" : "해당 학과는 공학인증제도가 존재하지 않아요ㅠㅠ"})
         return True
 
     elif ("학과소개" in chat_message)==True or ("학과 소개" in chat_message)==True:
         a = crawling.info(major)
-        url = 'https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/sendMessage'.format(token)
+        url = 'https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/sendMessage'.format(token)
         requests.get(url, params = {"chat_id" : chat_id, "text" : a})
         return True
     else:
@@ -119,7 +119,7 @@ def major_number(major):
 
 #main
 token = os.getenv('TELEGRAM_TOKEN')
-url = 'https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/getUpdates'.format(token)
+url = 'https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/getUpdates'.format(token)
 response = json.loads(requests.get(url).text)
 print(response)
 chat_id = response["result"][-1]["message"]["from"]["id"]
@@ -128,30 +128,30 @@ chat_message = response["result"][-1]["message"]["text"]
 major = find_major(chat_message)
 
 if major == 'No':
-    url = 'https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/sendMessage'.format(token)
+    url = 'https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/sendMessage'.format(token)
     requests.get(url, params = {"chat_id" : chat_id, "text" : '학과를 입력해주세요!'})
     time.sleep(5)
-    url = 'https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/getUpdates'.format(token)
+    url = 'https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/getUpdates'.format(token)
     response = json.loads(requests.get(url).text)
     chat_message = response["result"][-1]["message"]["text"]
     major = find_major(chat_message)
 
     if major == 'No':
-        url = 'https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/sendMessage'.format(token)
+        url = 'https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/sendMessage'.format(token)
         requests.get(url, params = {"chat_id" : chat_id, "text" : "세종대학교 소프트웨어융합대학에는 '데이터사이언스학과', '지능기전공학부', '컴퓨터공학과', '소프트웨어학과', '정보보호학과', '디자인이노베이션학과', '만화애니매이션텍학과'가 있어요.\n 원하시는 학과가 있다면 선택해주세요:) 없다면 죄송해요ㅠㅠ"})
 
 #find_menu(chat_message, major)
 
 if find_menu(chat_message, major) == False:
-    url = 'https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/sendMessage'.format(token)
+    url = 'https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/sendMessage'.format(token)
     requests.get(url, params = {"chat_id" : chat_id, "text" : '저에게 궁금한게 뭔가요?'})
     time.sleep(5)
-    url = 'https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/getUpdates'.format(token)
+    url = 'https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/getUpdates'.format(token)
     response = json.loads(requests.get(url).text)
     chat_message = response["result"][-1]["message"]["text"]
     menu = find_menu(chat_message, major)
 
     if menu == False:
         phonenumber = major_number(major)
-        url = 'https://api.telegram.org/bot1144068792:AAEdnHhb3iEcjhv86SRdmpmSLG_9Rpyu-44/sendMessage'.format(token)
-        requests.get(url, params = {"chat_id" : chat_id, "text" : '저는 잘 모르겠어요ㅜㅜ\n'+'학과 사무실 번호를 알려드릴게요!\n'+phonenumber+' 이 번호로 전화해주세요:)'})
+        url = 'https://api.telegram.org/bot1313642468:AAEXuBga6sg5oiHvP3GWgz6xH3coJghL8T4/sendMessage'.format(token)
+        requests.get(url, params = {"chat_id" : chat_id, "text" : '저는 잘 모르겠어요ㅜㅜ\n'+'학과 사무실 번호를 알려드릴게요!\n' + phonenumber+' 이 번호로 전화해주세요:)'})
